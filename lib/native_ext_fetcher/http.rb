@@ -46,11 +46,11 @@ module NativeExtFetcher
             retry
           end
 
-          raise MaxRetries, "max retries; #{e.message}"
+          raise MaxRetries, "max retries; #{e.message} (#{uri})"
         end
       end
 
-      raise MaxRedirect, 'max redirects hit'
+      raise MaxRedirect, "max redirects hit (#{uri})"
     end
 
     protected

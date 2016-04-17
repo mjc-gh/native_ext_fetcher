@@ -15,6 +15,14 @@ module NativeExtFetcher
       @options = options
 
       @download_path = expand_download_path
+
+      if options[:static]
+        @file_ext = Platform.native_extension_static_file_ext
+        @file_postfix = Platform.native_extension_static_file_postfix
+      else
+        @file_ext = Platform.native_extension_file_ext
+        @file_postfix = Platform.native_extension_file_postfix
+      end
     end
 
     def fetch!(library)
@@ -32,26 +40,28 @@ module NativeExtFetcher
 
     protected
 
-    def http_client
-      @http_client ||= Http.new(@options)
-    end
-
     def expected_digest
       @checksums[Platform.native_extension_key]
-    end
-
-    def library_local_path(library)
-      File.join @download_path, "#{library}#{Platform.native_extension_file_ext}"
-    end
-
-    def library_request_uri(library)
-      "https://#{@host}/#{library}#{Platform.native_extension_file_postfix}"
     end
 
     def expand_download_path
       File.join(@lib_path, 'native', *Platform.native_extension_tuple).tap do |native_path|
         FileUtils.mkdir_p native_path
       end
+    end
+
+    def library_local_path(library)
+      File.join @download_path, "#{library}#{@file_ext}"
+    end
+
+    def library_request_uri(library)
+      "https://#{@host}/#{library}#{@file_postfix}"
+    end
+
+    private
+
+    def http_client
+      @http_client ||= Http.new(@options)
     end
   end
 end

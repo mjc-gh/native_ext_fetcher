@@ -13,11 +13,27 @@ class PlatformTest < Minitest::Test
     refute_nil NativeExtFetcher::Platform::HOST_DLEXT
   end
 
+  test 'defines HOST_STATIC_EXT' do
+    refute_nil NativeExtFetcher::Platform::HOST_STATIC_EXT
+  end
+
   test 'native_extension_key returns a Symbol' do
-    assert_kind_of Symbol, NativeExtFetcher::Platform.native_extension_key
+    assert_match %r[\w+_\w+], NativeExtFetcher::Platform.native_extension_key
+  end
+
+  test 'native_extension_file_ext returns a String' do
+    assert_match %r[\.\w+], NativeExtFetcher::Platform.native_extension_file_ext
+  end
+
+  test 'native_extension_static_file_ext returns a String' do
+    assert_match %r[\.\w+], NativeExtFetcher::Platform.native_extension_static_file_ext
   end
 
   test 'native_extension_file_postfix returns a String' do
-    assert_kind_of String, NativeExtFetcher::Platform.native_extension_file_postfix
+    assert_match %r[\w+-\w+\.\w+], NativeExtFetcher::Platform.native_extension_file_postfix
+  end
+
+  test 'native_extension_static_file_ext returns a String' do
+    assert_match %r[\w+-\w+\.\w+], NativeExtFetcher::Platform.native_extension_static_file_postfix
   end
 end

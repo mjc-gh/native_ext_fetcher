@@ -43,11 +43,22 @@ module NativeExtFetcher
       def determine_host_dlext
         RbConfig::CONFIG['DLEXT'].downcase
       end
+
+      def determine_host_static_ext(os)
+        case os
+        when 'windows'
+          'lib'
+        else
+          'a'
+        end
+      end
     end
 
     HOST_OS    = determine_host_os.freeze
     HOST_ARCH  = determine_host_arch.freeze
     HOST_DLEXT = determine_host_dlext.freeze
+
+    HOST_STATIC_EXT = determine_host_static_ext(HOST_OS).freeze
 
     def self.native_extension_key
       :"#{HOST_OS}_#{HOST_ARCH}"
@@ -57,8 +68,16 @@ module NativeExtFetcher
       "-#{HOST_OS}-#{HOST_ARCH}.#{HOST_DLEXT}"
     end
 
+    def self.native_extension_static_file_postfix
+      "-#{HOST_OS}-#{HOST_ARCH}.#{HOST_STATIC_EXT}"
+    end
+
     def self.native_extension_file_ext
       ".#{HOST_DLEXT}"
+    end
+
+    def self.native_extension_static_file_ext
+      ".#{HOST_STATIC_EXT}"
     end
 
     def self.native_extension_tuple
