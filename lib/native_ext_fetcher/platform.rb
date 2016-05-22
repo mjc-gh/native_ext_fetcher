@@ -81,7 +81,7 @@ module NativeExtFetcher
     end
 
     def self.native_extension_tuple
-      [HOST_OS, HOST_ARCH]
+      [HOST_ARCH, HOST_OS]
     end
   end
 end

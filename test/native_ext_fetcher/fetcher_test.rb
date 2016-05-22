@@ -3,10 +3,10 @@ require 'test_helper'
 class FetcherTest < Minitest::Test
   setup do
     FakeFS.activate!
-    FileUtils.mkdir_p File.join(__dir__, '..', '..', 'lib')
+    FileUtils.mkdir_p File.join(__dir__, '..', '..', 'lib', 'some_name')
 
     @fetch = NativeExtFetcher::Fetcher.new
-    @fetch.config 'host.com', __dir__, linux_x86_64: 'abcdef'
+    @fetch.config 'some_name', 'host.com', __dir__, linux_x86_64: 'abcdef'
   end
 
   teardown do

@@ -4,8 +4,8 @@ module NativeExtFetcher
 
     attr_reader :download_path
 
-    def config(host, path, checksums, options = {})
-      @lib_path = File.expand_path(File.join(path, '..', '..', 'lib'))
+    def config(name, host, path, checksums, options = {})
+      @lib_path = File.expand_path(File.join(path, '..', '..', 'lib', name))
 
       raise ArgumentError, 'Checksums must be a hash' unless Hash === checksums
       raise ArgumentError, 'Library path not found ' unless Dir.exists?(@lib_path)
