@@ -8,8 +8,8 @@ module NativeExtFetcher
     MAX_REDIRECTS = 5
     MAX_RETRIES   = 3
 
-    MaxRedirect = Class.new(StandardError)
-    MaxRetries  = Class.new(StandardError)
+    MaxRedirect = Class.new(Error)
+    MaxRetries  = Class.new(Error)
 
     def initialize(options = {})
       @max_redirects = options[:max_redirects] || MAX_REDIRECTS

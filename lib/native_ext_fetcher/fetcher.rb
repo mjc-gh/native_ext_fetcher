@@ -1,6 +1,6 @@
 module NativeExtFetcher
   class Fetcher
-    InvalidDigest = Class.new(StandardError)
+    InvalidDigest = Class.new(Error)
 
     attr_reader :download_path
 

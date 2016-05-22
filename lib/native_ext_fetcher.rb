@@ -1,6 +1,7 @@
 require 'fileutils'
 
 require 'native_ext_fetcher/version'
+require 'native_ext_fetcher/error'
 require 'native_ext_fetcher/platform'
 require 'native_ext_fetcher/fetcher'
 require 'native_ext_fetcher/http'
